@@ -141,30 +141,22 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>Task Master</h1>
-        
         <form class="input-group" id="todo-form">
             <input type="text" id="todo-input" placeholder="What needs to be done?" required autocomplete="off">
             <button type="submit" class="add-btn">Add</button>
         </form>
-
-        <div class="loader" id="loader">Syncing...</div>
-        
-        <ul class="todo-list" id="todo-list">
-            </ul>
+        <div class="loader" id="loader">Syncing...</div>       
+        <ul class="todo-list" id="todo-list"></ul>
     </div>
-
     <script>
         // Update this if your FastAPI server runs on a different port
         const API_BASE_URL = 'http://127.0.0.1:8000/todos';
-        
         const todoForm = document.getElementById('todo-form');
         const todoInput = document.getElementById('todo-input');
         const todoList = document.getElementById('todo-list');
         const loader = document.getElementById('loader');
-
         // Fetch and display all Todos
         async function fetchTodos() {
             showLoader();
@@ -178,7 +170,6 @@
             }
             hideLoader();
         }
-
         // Render Todos to the DOM
         function renderTodos(todos) {
             todoList.innerHTML = '';
@@ -200,7 +191,6 @@
                 todoList.appendChild(li);
             });
         }
-
         // Add a new Todo
         todoForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -215,7 +205,6 @@
                 title: title,
                 completed: false
             };
-
             showLoader();
             try {
                 await fetch(API_BASE_URL, {
@@ -229,7 +218,6 @@
                 console.error('Error adding todo:', error);
             }
         });
-
         // Update a Todo (Toggle Completion)
         async function toggleComplete(id, title, currentStatus) {
             const updatedTodo = {
@@ -237,7 +225,6 @@
                 title: title,
                 completed: !currentStatus // Toggle the status
             };
-
             showLoader();
             try {
                 await fetch(`${API_BASE_URL}/${id}`, {
@@ -250,7 +237,6 @@
                 console.error('Error updating todo:', error);
             }
         }
-
         // Delete a Todo
         async function deleteTodo(id) {
             if(!confirm("Are you sure you want to delete this task?")) return;
