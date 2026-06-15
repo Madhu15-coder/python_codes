@@ -1,8 +1,18 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 todos = []
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/todos")
 def get_todos():
@@ -34,20 +44,5 @@ def delete_todos(todo_id: int):
             return {"message": "todo deleted"}
     return {"message": "todo not found"}
 
-
-
-
-
-# git init -->>initialize repo
-
-# git add . -->staging area
-
-# git commit -m "message"
-
-# git branch -M main
-
-# git remote add origin __link__
-
-# git push -u origin main
 
     
